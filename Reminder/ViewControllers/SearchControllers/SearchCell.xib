@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" rowHeight="111" id="are-wT-uVD" customClass="SearchCell" customModule="Homework_11_13_Ovsyuk" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="are-wT-uVD" id="1n0-CL-Cwk">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA5-6j-jYM">
+                        <rect key="frame" x="20" y="12" width="50.5" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xz5-8v-t9S">
+                        <rect key="frame" x="52" y="72.5" width="88" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Note" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWh-D1-1Xp">
+                        <rect key="frame" x="52" y="47" width="37" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4KY-h2-4OM">
+                        <rect key="frame" x="19" y="47.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="0MU-C1-P2d"/>
+                            <constraint firstAttribute="height" constant="21" id="pVQ-oY-OqR"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" backgroundImage="circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="checkBoxTapped:" destination="are-wT-uVD" eventType="touchUpInside" id="xmv-pW-tCs"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLn-sW-vbn">
+                        <rect key="frame" x="14" y="43" width="30" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="4ZJ-eY-Cu5"/>
+                            <constraint firstAttribute="height" constant="30" id="EaU-dW-y2A"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" backgroundImage="circle" catalog="system">
+                            <color key="titleColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="checkBoxTapped:" destination="are-wT-uVD" eventType="touchUpInside" id="ESm-Zp-raL"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hWh-D1-1Xp" firstAttribute="leading" secondItem="fLn-sW-vbn" secondAttribute="trailing" constant="8" id="3t3-zy-ANC"/>
+                    <constraint firstItem="4KY-h2-4OM" firstAttribute="centerY" secondItem="fLn-sW-vbn" secondAttribute="centerY" id="4uD-pg-sAO"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xz5-8v-t9S" secondAttribute="trailing" id="A8N-u1-ItY"/>
+                    <constraint firstItem="xz5-8v-t9S" firstAttribute="top" secondItem="hWh-D1-1Xp" secondAttribute="bottom" constant="5" id="IYe-KI-GlA"/>
+                    <constraint firstAttribute="bottom" secondItem="xz5-8v-t9S" secondAttribute="bottom" constant="18" id="NlB-QD-bcc"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XA5-6j-jYM" secondAttribute="trailing" id="Pxd-F9-dqO"/>
+                    <constraint firstItem="fLn-sW-vbn" firstAttribute="leading" secondItem="1n0-CL-Cwk" secondAttribute="leading" constant="14" id="he6-OH-OJM"/>
+                    <constraint firstItem="4KY-h2-4OM" firstAttribute="centerX" secondItem="fLn-sW-vbn" secondAttribute="centerX" id="hyl-he-p32"/>
+                    <constraint firstItem="XA5-6j-jYM" firstAttribute="top" secondItem="1n0-CL-Cwk" secondAttribute="top" constant="12" id="ipd-PG-Jfs"/>
+                    <constraint firstItem="hWh-D1-1Xp" firstAttribute="top" secondItem="XA5-6j-jYM" secondAttribute="bottom" constant="11" id="s51-js-TkO"/>
+                    <constraint firstItem="XA5-6j-jYM" firstAttribute="leading" secondItem="1n0-CL-Cwk" secondAttribute="leading" constant="20" id="wlQ-tl-byT"/>
+                    <constraint firstItem="fLn-sW-vbn" firstAttribute="centerY" secondItem="hWh-D1-1Xp" secondAttribute="centerY" id="yAr-0U-ulB"/>
+                    <constraint firstItem="xz5-8v-t9S" firstAttribute="leading" secondItem="1n0-CL-Cwk" secondAttribute="leading" constant="52" id="ygF-HX-4aZ"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hWh-D1-1Xp" secondAttribute="trailing" id="zwT-Xg-SmJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="checkBoxButton" destination="fLn-sW-vbn" id="JBM-qg-4oB"/>
+                <outlet property="checkBoxFillButton" destination="4KY-h2-4OM" id="rqN-5a-pCq"/>
+                <outlet property="titleDescriptionLabel" destination="xz5-8v-t9S" id="vHG-mx-wBG"/>
+                <outlet property="titleListLabel" destination="XA5-6j-jYM" id="Fq1-dD-ORH"/>
+                <outlet property="titleNoteLabel" destination="hWh-D1-1Xp" id="Dfg-o1-4y5"/>
+            </connections>
+            <point key="canvasLocation" x="29.710144927536234" y="6.3616071428571423"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
+</document>
