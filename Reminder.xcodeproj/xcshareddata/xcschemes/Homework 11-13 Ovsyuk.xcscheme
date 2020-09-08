@@ -17,7 +17,7 @@
                BlueprintIdentifier = "30AF04F024D6DB9200B113E3"
                BuildableName = "Reminder.app"
                BlueprintName = "Reminder"
-               ReferencedContainer = "container:Reminder loca.xcodeproj">
+               ReferencedContainer = "container:Reminder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "30AF04F024D6DB9200B113E3"
             BuildableName = "Reminder.app"
             BlueprintName = "Reminder"
-            ReferencedContainer = "container:Reminder loca.xcodeproj">
+            ReferencedContainer = "container:Reminder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "30AF04F024D6DB9200B113E3"
             BuildableName = "Reminder.app"
             BlueprintName = "Reminder"
-            ReferencedContainer = "container:Reminder loca.xcodeproj">
+            ReferencedContainer = "container:Reminder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
