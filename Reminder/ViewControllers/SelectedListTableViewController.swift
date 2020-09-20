@@ -1,6 +1,6 @@
 //
 //  SelectedListTableViewController.swift
-//  Homework 11-13 Ovsyuk
+//  Reminder
 //
 //  Created by Влад Овсюк on 02.08.2020.
 //  Copyright © 2020 Vlad Ovsyuk. All rights reserved.
@@ -8,19 +8,18 @@
 
 import UIKit
 
-/// final?
-class SelectedListTableViewController: UITableViewController {
+final class SelectedListTableViewController: UITableViewController {
     
     // MARK: - Outlet
     
     @IBOutlet weak var titleListLabel: UINavigationItem! // Navigation title
     @IBOutlet weak var newReminderButton: UIBarButtonItem! // Button for crate new note
     @IBOutlet weak var noRemindersLabel: UILabel! // Label empty list
+    @IBOutlet var tableViewOutlet: UITableView!
     
     // MARK: - Private properties
     
-    /// Better name it `notes`
-    private var listNote: [RemindeNoteModel] = []
+    private var notes: [RemindeNoteModel] = []
     private var isDeleteOrSave: Bool = false // Bool for save and delete note
     
     // MARK: - Properties
@@ -32,21 +31,15 @@ class SelectedListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         /// Avoid using force unwrapping.
-        listNote.append(contentsOf: listSegueModel!.listNoteArray)
-        setListNote()
+        notes.append(contentsOf: listSegueModel!.listNoteArray)
+        setNotes()
         emptyListCheck()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        defauldTitleSet()
     }
     
     // MARK: - Private metod
     
     /// Customization navigation title and color for list
-    /// Better name it `setNotes()`
-    private func setListNote() {
+    private func setNotes() {
         titleListLabel.title = listSegueModel?.title
         
         switch listSegueModel?.title {
@@ -71,16 +64,10 @@ class SelectedListTableViewController: UITableViewController {
         }
     }
     
-    /// Need for navigation title in MyListTableViewController, without metod him he paints
-    /// Better name it `setDefaultTitle()`
-    private func defauldTitleSet() {
-        navigationController?.navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black]
-    }
-    
     /// Metod display "No teminders" when list empty
     /// Better name it `configureEmptyState()`
     private func emptyListCheck() {
-        if listNote.isEmpty {
+        if notes.isEmpty {
             noRemindersLabel.isHidden = false
             noRemindersLabel.text = "No reminders"
         } else {
@@ -94,7 +81,7 @@ class SelectedListTableViewController: UITableViewController {
     @IBAction func newReminderButtopTapped(_ sender: Any) {
         /// Separate `+` with whitespaces
         /// Avoid using force unwrapping. Better use nil-coaleasing here.
-        listNote.append(RemindeNoteModel(id: listNote.endIndex+1, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
+        notes.append(RemindeNoteModel(id: notes.endIndex+1, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
         isDeleteOrSave = true
         tableView.reloadData()
         emptyListCheck()
@@ -103,7 +90,7 @@ class SelectedListTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        listNote.count
+        notes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,7 +99,7 @@ class SelectedListTableViewController: UITableViewController {
         /// Avoid using force unwrapping. Better use optional chaining here.
         cell.list = listSegueModel!.title // Need for button color set
         
-        cell.configure(titleNoteModel: listNote[indexPath.row], titleDescriptionModel: listNote[indexPath.row])
+        cell.configure(titleNoteModel: notes[indexPath.row], titleDescriptionModel: notes[indexPath.row])
         
         // Custom separators
         /// Why using timer here?
@@ -131,12 +118,12 @@ class SelectedListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             isDeleteOrSave = true
-            listNote.remove(at: indexPath.row)
+            notes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             emptyListCheck()
         }
     }
-
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -146,15 +133,15 @@ class SelectedListTableViewController: UITableViewController {
         if isDeleteOrSave == true {
             switch titleListLabel.title {
             case "New":
-                myListTableViewController.newList = listNote
+                myListTableViewController.newList = notes
             case "Education":
-                myListTableViewController.educationList = listNote
+                myListTableViewController.educationList = notes
             case "Swift Homework":
-                myListTableViewController.swiftHomeworkList = listNote
+                myListTableViewController.swiftHomeworkList = notes
             case "Podcast":
-                myListTableViewController.podcastList = listNote
+                myListTableViewController.podcastList = notes
             case "Books":
-                myListTableViewController.booksList = listNote
+                myListTableViewController.booksList = notes
             default:
                 break
             }

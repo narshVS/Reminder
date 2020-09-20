@@ -1,6 +1,6 @@
 //
 //  MyListTableViewController.swift
-//  Homework 11-13 Ovsyuk
+//  Reminder
 //
 //  Created by Влад Овсюк on 04.08.2020.
 //  Copyright © 2020 Vlad Ovsyuk. All rights reserved.
@@ -12,12 +12,13 @@ import UIKit
 class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     
     // MARK: - Outlet
-    
+
     @IBOutlet weak var newCountLabel: UILabel!
     @IBOutlet weak var educationCountLabel: UILabel!
     @IBOutlet weak var swiftHomeworkLabel: UILabel!
     @IBOutlet weak var podcastCountLabel: UILabel!
     @IBOutlet weak var booksCountLabel: UILabel!
+    
     
     // MARK: - Private properties
     
@@ -53,6 +54,7 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         countListTitle()
+        setDefaultTitle()
     }
     
     // MARK: - Search Controller
@@ -105,6 +107,10 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private func hideToolbar() {
         self.navigationController?.setToolbarHidden(true, animated: true)
+    }
+    
+    private func setDefaultTitle() {
+        navigationController?.navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.label]
     }
     
     // MARK: - Table view delegate
