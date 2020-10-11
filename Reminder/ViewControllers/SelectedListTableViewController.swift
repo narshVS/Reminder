@@ -81,7 +81,6 @@ final class SelectedListTableViewController: UITableViewController {
     /// Add new note, To doo...
     @IBAction func newReminderButtopTapped(_ sender: Any) {
         notes.append(RemindeNoteModel(id: notes.endIndex, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
-        print(notes)
         isDeleteOrSave = true
         tableView.reloadData()
         configureEmptyState()
