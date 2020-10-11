@@ -24,6 +24,7 @@
 		30B458C224DC79F200A78554 /* RemindeNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B458C124DC79F200A78554 /* RemindeNoteModel.swift */; };
 		30C5F4C024D70DED00B43883 /* ListSegueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5F4BF24D70DED00B43883 /* ListSegueModel.swift */; };
 		30C5F4C224D7251A00B43883 /* SelectedListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5F4C124D7251A00B43883 /* SelectedListTableViewController.swift */; };
+		30D84DFD2518EE17001CE583 /* NewReminder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D84DFC2518EE17001CE583 /* NewReminder.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		30B458C124DC79F200A78554 /* RemindeNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindeNoteModel.swift; sourceTree = "<group>"; };
 		30C5F4BF24D70DED00B43883 /* ListSegueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSegueModel.swift; sourceTree = "<group>"; };
 		30C5F4C124D7251A00B43883 /* SelectedListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedListTableViewController.swift; sourceTree = "<group>"; };
+		30D84DFC2518EE17001CE583 /* NewReminder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewReminder.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				30AF050B24D6DC2000B113E3 /* LaunchScreen */,
 				30AF04FA24D6DB9300B113E3 /* Main.storyboard */,
+				30D84DFC2518EE17001CE583 /* NewReminder.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				307E59A224F946900059BE89 /* SearchCell.xib in Resources */,
+				30D84DFD2518EE17001CE583 /* NewReminder.storyboard in Resources */,
 				30AF050124D6DB9800B113E3 /* LaunchScreen.storyboard in Resources */,
 				30AF04FE24D6DB9800B113E3 /* Assets.xcassets in Resources */,
 				30AF04FC24D6DB9300B113E3 /* Main.storyboard in Resources */,

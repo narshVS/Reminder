@@ -8,8 +8,24 @@
 
 import UIKit 
 
-/// final?
-class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
+final class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
+    
+    // MARK: - Search Controller
+    
+    private var searchResultController: SearchResultTableViewController?
+    private var filteredNotes = [RemindeNoteModel]()
+    private var allNotes: [RemindeNoteModel] = [] // The array is needed for searching
+    
+    /// Customization search сontroller
+    private func configureSearchController() {
+        searchResultController = SearchResultTableViewController()
+        let searchController = UISearchController(searchResultsController: searchResultController)
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        searchController.delegate = self
+        searchController.searchBar.placeholder = "Search"
+    }
     
     // MARK: - Outlet
 
@@ -26,10 +42,9 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // MARK: - List Note
     
-    /// Don't initialize models inside the VC. Move it elsewhere.
     var newList: [RemindeNoteModel] = [
         RemindeNoteModel(id: 0, list: "New", title: "Test", description: "Test"),
-        RemindeNoteModel(id: 0, list: "New", title: "Test ", description: "")]
+        RemindeNoteModel(id: 1, list: "New", title: "Test ", description: "")]
     
     var educationList: [RemindeNoteModel] = [
         RemindeNoteModel(id: 0, list: "Education",  title: "Test", description: "")]
@@ -48,7 +63,7 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchControllerConfigure()
+        configureSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,31 +72,9 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         setDefaultTitle()
     }
     
-    // MARK: - Search Controller
+    // MARK: - Public metod
     
-    /// Don't mix properties with methods. Better define them grouped at the beginning of the class definition.
-    private var searchResultController: SearchResultTableViewController?
-    /// notes*
-    private var filteredNote = [RemindeNoteModel]()
-    /// Better name it `originalNotes`.
-    private var allList: [RemindeNoteModel] = [] // The array is needed for searching
-    
-    /// Customization search сontroller
-    /// Better name the method as a command or call to action starting with a verb.
-    /// E.g. `configureSearchController()`
-    private func searchControllerConfigure() {
-        searchResultController = SearchResultTableViewController()
-        let searchController = UISearchController(searchResultsController: searchResultController)
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
-        searchController.delegate = self
-        searchController.searchBar.placeholder = "Search"
-    }
-    
-    // MARK: - Private metod
-    
-    private func countListTitle() {
+    func countListTitle() {
         newCountLabel.text = "\(newList.count) >"
         educationCountLabel.text = "\(educationList.count) >"
         swiftHomeworkLabel.text = "\(swiftHomeworkList.count) >"
@@ -90,14 +83,15 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         navigationController?.toolbar.isHidden = false
     }
     
-    /// append*
-    private func appedAllList() {
-        allList = []
-        allList.append(contentsOf: newList)
-        allList.append(contentsOf: educationList)
-        allList.append(contentsOf: swiftHomeworkList)
-        allList.append(contentsOf: podcastList)
-        allList.append(contentsOf: booksList)
+    // MARK: - Private metod
+    
+    private func appendAllList() {
+        allNotes = []
+        allNotes.append(contentsOf: newList)
+        allNotes.append(contentsOf: educationList)
+        allNotes.append(contentsOf: swiftHomeworkList)
+        allNotes.append(contentsOf: podcastList)
+        allNotes.append(contentsOf: booksList)
     }
     
     /// Better name it `showToolbar()`
@@ -139,7 +133,6 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         return controller
     }
     
-    /// Don't leave empty methods in the code.
     @IBAction func unwindToMyListTableViewController(_ sender: UIStoryboardSegue) {}
 }
 
@@ -148,18 +141,18 @@ extension MyListTableViewController: UISearchResultsUpdating {
         guard let queryText = searchController.searchBar.text else {
             return
         }
-        appedAllList()
+        appendAllList()
         if queryText.isEmpty {
-            filteredNote = allList
+            filteredNotes = allNotes
         } else {
-            filteredNote = []
-            allList.forEach { model in
+            filteredNotes = []
+            allNotes.forEach { model in
                 if model.title.contains(queryText) {
-                    filteredNote.append(model)
+                    filteredNotes.append(model)
                 }
             }
         }
-        searchResultController?.set(filteredNote: filteredNote)
+        searchResultController?.set(filteredNote: filteredNotes)
     }
     
     /// Methods show/hide toolbar for search

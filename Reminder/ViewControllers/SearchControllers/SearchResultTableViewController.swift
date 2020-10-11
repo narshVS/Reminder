@@ -8,8 +8,7 @@
 
 import UIKit
 
-/// final?
-class SearchResultTableViewController: UITableViewController {
+final class SearchResultTableViewController: UITableViewController {
     
     // MARK: - Private properties
     

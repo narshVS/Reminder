@@ -8,8 +8,7 @@
 
 import UIKit
 
-/// final?
-class ListReminderTableViewController: UITableViewController {
+final class ListReminderTableViewController: UITableViewController {
     
     // MARK: - Outlets
     
@@ -35,7 +34,6 @@ class ListReminderTableViewController: UITableViewController {
         }
         switch selectList?.list {
         case "New List >":
-            /// Using incides isn't a good idea. Use safe methods instead to avoid `out of bounds` exception.
             checkBoxCollection[0].isHidden = false
         case "Education List >":
             checkBoxCollection[1].isHidden = false
@@ -50,7 +48,6 @@ class ListReminderTableViewController: UITableViewController {
         }
     }
     
-    /// This method does the opposite stuff to the previous one. Do you really need them both?
     private func unwindListTitle() -> String {
         var title = ""
         if checkBoxCollection[0].isHidden == false {

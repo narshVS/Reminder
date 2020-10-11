@@ -8,8 +8,7 @@
 
 import UIKit
 
-/// final?
-class NewReminderTableViewCintroller: UITableViewController {
+final class NewReminderTableViewCintroller: UITableViewController {
     
     // MARK: - Outlet
     
@@ -64,8 +63,7 @@ class NewReminderTableViewCintroller: UITableViewController {
     /// Segue - Select list for save
     @IBSegueAction func selectListTapped(_ coder: NSCoder) -> ListReminderTableViewController? {
         let controller = ListReminderTableViewController(coder: coder)
-        /// Avoid using force unwrapping. Better use optional bidning here.
-        controller?.selectList = SelectListSegueModel(list: titleListLabel.text!)
+        controller?.selectList = SelectListSegueModel(list: titleListLabel.text ?? "")
         return controller
     }
     
@@ -95,9 +93,7 @@ class NewReminderTableViewCintroller: UITableViewController {
             default:
                 break
             }
-            /// It's a strange method to update the view.
-            /// Why don't using `.setNeedsDisplay()` or `setNeedsLayout()` depending on the purpose?
-            myListTableViewController.viewWillAppear(true) // Update view
+            myListTableViewController.countListTitle()
         } else {
             dismiss(animated: true)
         }

@@ -30,20 +30,22 @@ final class SelectedListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /// Avoid using force unwrapping.
-        notes.append(contentsOf: listSegueModel!.listNoteArray)
         setNotes()
-        emptyListCheck()
+        configureEmptyState()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        performSegue(withIdentifier: "MyListUnwindSegue", sender: self)
     }
     
     // MARK: - Private metod
     
     /// Customization navigation title and color for list
     private func setNotes() {
+        notes.append(contentsOf: listSegueModel!.listNoteArray)
         titleListLabel.title = listSegueModel?.title
         
         switch listSegueModel?.title {
-        /// Better create an enum with string cases in order to reuse them in all the VCs.
         case "New":
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemGreen]
             newReminderButton.tintColor = .systemGreen
@@ -65,8 +67,7 @@ final class SelectedListTableViewController: UITableViewController {
     }
     
     /// Metod display "No teminders" when list empty
-    /// Better name it `configureEmptyState()`
-    private func emptyListCheck() {
+    private func configureEmptyState() {
         if notes.isEmpty {
             noRemindersLabel.isHidden = false
             noRemindersLabel.text = "No reminders"
@@ -79,15 +80,14 @@ final class SelectedListTableViewController: UITableViewController {
     
     /// Add new note, To doo...
     @IBAction func newReminderButtopTapped(_ sender: Any) {
-        /// Separate `+` with whitespaces
-        /// Avoid using force unwrapping. Better use nil-coaleasing here.
-        notes.append(RemindeNoteModel(id: notes.endIndex+1, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
+        notes.append(RemindeNoteModel(id: notes.endIndex, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
+        print(notes)
         isDeleteOrSave = true
         tableView.reloadData()
-        emptyListCheck()
+        configureEmptyState()
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table view data source12
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         notes.count
@@ -95,41 +95,33 @@ final class SelectedListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  "ReminderNoteCell", for: indexPath) as! ReminderNoteCell
-        
-        /// Avoid using force unwrapping. Better use optional chaining here.
-        cell.list = listSegueModel!.title // Need for button color set
+
+        cell.list = listSegueModel?.title ?? "" // Need for button color set
         
         cell.configure(titleNoteModel: notes[indexPath.row], titleDescriptionModel: notes[indexPath.row])
         
-        // Custom separators
-        /// Why using timer here?
-        /// What's a profite?
+        /// Custom separators
         Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { (timer) in
             cell.removeSectionSeparators()
         }
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        /// We can omit the `return` keyword for the single line methods.
-        return true
-    }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { true }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             isDeleteOrSave = true
             notes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            emptyListCheck()
+            configureEmptyState()
         }
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let myListTableViewController = segue.destination as? MyListTableViewController else {
-            return
-        }
+        guard let myListTableViewController = segue.destination as? MyListTableViewController else { return }
         if isDeleteOrSave == true {
             switch titleListLabel.title {
             case "New":
@@ -153,8 +145,6 @@ final class SelectedListTableViewController: UITableViewController {
 extension UITableViewCell {
     func removeSectionSeparators() {
         for subview in subviews {
-            /// It's a risky condition. Isn't it better to check for a height <= 1 ? :)
-            /// P.S. we could just disable separator for the table view.
             if subview != contentView && subview.frame.width == frame.width {
                 subview.removeFromSuperview()
             }
