@@ -19,7 +19,7 @@ final class SelectedListTableViewController: UITableViewController {
     
     // MARK: - Private properties
     
-    private var notes: [RemindeNoteModel] = []
+    private var notes: [NoteModel] = []
     private var isDeleteOrSave: Bool = false // Bool for save and delete note
     
     // MARK: - Properties
@@ -80,7 +80,7 @@ final class SelectedListTableViewController: UITableViewController {
     
     /// Add new note, To doo...
     @IBAction func newReminderButtopTapped(_ sender: Any) {
-        notes.append(RemindeNoteModel(id: notes.endIndex, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
+        notes.append(NoteModel(id: notes.endIndex, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
         isDeleteOrSave = true
         tableView.reloadData()
         configureEmptyState()
@@ -93,7 +93,7 @@ final class SelectedListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "ReminderNoteCell", for: indexPath) as! ReminderNoteCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:  "ReminderNoteCell", for: indexPath) as! NoteCell
 
         cell.list = listSegueModel?.title ?? "" // Need for button color set
         

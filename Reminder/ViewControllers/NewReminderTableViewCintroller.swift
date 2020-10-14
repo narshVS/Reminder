@@ -15,7 +15,7 @@ final class NewReminderTableViewCintroller: UITableViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var titleListLabel: UILabel! // Selected list for save
-    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var descriptionTextView: UITextView!
     
     // MARK: - Properties
@@ -25,15 +25,14 @@ final class NewReminderTableViewCintroller: UITableViewController {
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
-        titleListLabel.text = listTitle
-        circleColorSet()
+        configureView()
     }
     
     // MARK: - Private metod
     
-    /// Better name it `setCircleColor()`
-    private func circleColorSet() {
-        /// Refactor picking a color somehow. You're using it in each VC.
+    private func configureView() {
+        titleListLabel.text = listTitle
+        
         switch titleListLabel.text {
         case "New List >":
             circleImageView.tintColor = .systemGreen
@@ -69,7 +68,6 @@ final class NewReminderTableViewCintroller: UITableViewController {
     
     // MARK: - Table view delegate
     
-    /// Don't leave empty methods.
     @IBAction func unwindToNewReminderTableViewCintroller(_ sender: UIStoryboardSegue) {}
     
     // MARK: - Navigation
@@ -78,18 +76,18 @@ final class NewReminderTableViewCintroller: UITableViewController {
         guard let myListTableViewController = segue.destination as? MyListTableViewController else {
             return
         }
-        if noteTextView.text != "" {
+        if titleTextView.text != "" {
             switch titleListLabel.text {
             case "New List >":
-                myListTableViewController.newList.append(RemindeNoteModel(id: myListTableViewController.newList.endIndex + 1, list: "New",  title: noteTextView.text, description: descriptionTextView.text))
+                myListTableViewController.newList.append(NoteModel(id: myListTableViewController.newList.endIndex + 1, list: "New",  title: titleTextView.text, description: descriptionTextView.text))
             case "Education List >":
-                myListTableViewController.educationList.append(RemindeNoteModel(id: myListTableViewController.educationList.endIndex + 1, list: "Education",  title: noteTextView.text, description: descriptionTextView.text))
+                myListTableViewController.educationList.append(NoteModel(id: myListTableViewController.educationList.endIndex + 1, list: "Education",  title: titleTextView.text, description: descriptionTextView.text))
             case "Swift List >":
-                myListTableViewController.swiftHomeworkList.append(RemindeNoteModel(id: myListTableViewController.swiftHomeworkList.endIndex + 1, list: "Swift",  title: noteTextView.text, description: descriptionTextView.text))
+                myListTableViewController.swiftHomeworkList.append(NoteModel(id: myListTableViewController.swiftHomeworkList.endIndex + 1, list: "Swift",  title: titleTextView.text, description: descriptionTextView.text))
             case "Podcast List >":
-                myListTableViewController.podcastList.append(RemindeNoteModel(id: myListTableViewController.podcastList.endIndex + 1, list: "Podcast",  title: noteTextView.text, description: descriptionTextView.text))
+                myListTableViewController.podcastList.append(NoteModel(id: myListTableViewController.podcastList.endIndex + 1, list: "Podcast",  title: titleTextView.text, description: descriptionTextView.text))
             case "Books List >":
-                myListTableViewController.booksList.append(RemindeNoteModel(id: myListTableViewController.booksList.endIndex + 1, list: "Books",  title: noteTextView.text, description: descriptionTextView.text))
+                myListTableViewController.booksList.append(NoteModel(id: myListTableViewController.booksList.endIndex + 1, list: "Books",  title: titleTextView.text, description: descriptionTextView.text))
             default:
                 break
             }

@@ -30,16 +30,15 @@ final class SearchCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var listStorage: RemindeNoteModel?
+    var listStorage: NoteModel?
     
     // MARK: - Configure
     
-    /// Better name it `configure(with:desctiptionModel:listModel:)`
-    func configure(titleNoteModel: RemindeNoteModel, titleDescriptionModel: RemindeNoteModel, titleListModel: RemindeNoteModel) {
+    func configure(titleNoteModel: NoteModel, titleDescriptionModel: NoteModel, titleListModel: NoteModel) {
         titleNoteLabel.text = titleNoteModel.title
         titleDescriptionLabel.text = titleDescriptionModel.description
         titleListLabel.text = titleListModel.list
-        titleColorSet()
+        setTitleColor()
         checkButtonEnable() /// Remove description when it empty and configure him and title list
     }
     
@@ -60,8 +59,7 @@ final class SearchCell: UITableViewCell {
     
     // MARK: - Private methods
     
-    /// Better name it `setTitleColor()`
-    private func titleColorSet() {
+    private func setTitleColor() {
         switch listStorage?.list {
         case "New":
             titleListLabel.textColor = .systemGreen
@@ -80,12 +78,12 @@ final class SearchCell: UITableViewCell {
     
     /// Remove description when it empty and configure him and title list
     private func checkButtonEnable() {
-        if checkBoxButton.isEnabled == false {
-            checkBoxColorSet()
-        } else {
+        if checkBoxButton.isEnabled == true {
             checkBoxButton.tintColor = .placeholderText
             checkBoxFillButton.tintColor = .placeholderText
             checkBoxFillButton.isHidden = true
+        } else {
+            checkBoxColorSet()
         }
     }
     

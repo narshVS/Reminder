@@ -13,8 +13,8 @@ final class MyListTableViewController: UITableViewController, UISearchBarDelegat
     // MARK: - Search Controller
     
     private var searchResultController: SearchResultTableViewController?
-    private var filteredNotes = [RemindeNoteModel]()
-    private var allNotes: [RemindeNoteModel] = [] // The array is needed for searching
+    private var filteredNotes = [NoteModel]()
+    private var allNotes: [NoteModel] = [] // The array is needed for searching
     
     /// Customization search сontroller
     private func configureSearchController() {
@@ -42,22 +42,22 @@ final class MyListTableViewController: UITableViewController, UISearchBarDelegat
     
     // MARK: - List Note
     
-    var newList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "New", title: "Test", description: "Test"),
-        RemindeNoteModel(id: 1, list: "New", title: "Test ", description: "")]
+    var newList: [NoteModel] = [
+        NoteModel(id: 0, list: "New", title: "Test", description: "Test"),
+        NoteModel(id: 1, list: "New", title: "Test ", description: "")]
     
-    var educationList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Education",  title: "Test", description: "")]
+    var educationList: [NoteModel] = [
+        NoteModel(id: 0, list: "Education",  title: "Test", description: "")]
     
-    var swiftHomeworkList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Swift Homework",  title: "Create Reminder", description: ""),
-        RemindeNoteModel(id: 1, list: "Swift Homework",  title: "Test", description: "")]
+    var swiftHomeworkList: [NoteModel] = [
+        NoteModel(id: 0, list: "Swift Homework",  title: "Create Reminder", description: ""),
+        NoteModel(id: 1, list: "Swift Homework",  title: "Test", description: "")]
     
-    var podcastList: [RemindeNoteModel] = []
+    var podcastList: [NoteModel] = []
     
-    var booksList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Books",  title: "Прочесть 'Выбор великого демона'", description: ""),
-        RemindeNoteModel(id: 1, list: "Books",  title: "Прочесть 'Черное пламя над степью'", description: "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test")]
+    var booksList: [NoteModel] = [
+        NoteModel(id: 0, list: "Books",  title: "Прочесть 'Выбор великого демона'", description: ""),
+        NoteModel(id: 1, list: "Books",  title: "Прочесть 'Черное пламя над степью'", description: "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test")]
     
     // MARK: - Life cycle
     
