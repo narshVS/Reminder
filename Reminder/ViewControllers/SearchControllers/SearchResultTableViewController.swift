@@ -8,12 +8,11 @@
 
 import UIKit
 
-/// final?
-class SearchResultTableViewController: UITableViewController {
+final class SearchResultTableViewController: UITableViewController {
     
     // MARK: - Private properties
     
-    private var resultNote: [RemindeNoteModel] = [] {
+    private var resultNote: [NoteModel] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -28,15 +27,15 @@ class SearchResultTableViewController: UITableViewController {
     
     // MARK: - Public metod
     
-    public func set(filteredNote: [RemindeNoteModel]) {
+    public func set(filteredNote: [NoteModel]) {
         self.resultNote = filteredNote
-        newIdSet()
+        setID()
     }
     
     // MARK: - Private metod
     
     /// Need for set color button
-    private func newIdSet() {
+    private func setID() {
         var newId = 0
         var index = 0
         for _ in resultNote {

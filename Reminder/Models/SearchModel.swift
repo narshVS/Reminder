@@ -9,5 +9,5 @@
 import Foundation
 
 struct SearchModel {
-    let result: [RemindeNoteModel]
+    let result: [NoteModel]
 }

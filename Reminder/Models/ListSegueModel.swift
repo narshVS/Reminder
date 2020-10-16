@@ -10,5 +10,5 @@ import Foundation
 
 struct ListSegueModel {
     let title: String
-    let listNoteArray: [RemindeNoteModel]
+    let listNoteArray: [NoteModel]
 }

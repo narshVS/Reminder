@@ -1,6 +1,6 @@
 //
 //  MyListTableViewController.swift
-//  Homework 11-13 Ovsyuk
+//  Reminder
 //
 //  Created by Влад Овсюк on 04.08.2020.
 //  Copyright © 2020 Vlad Ovsyuk. All rights reserved.
@@ -8,66 +8,16 @@
 
 import UIKit 
 
-/// final?
-class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
-    
-    // MARK: - Outlet
-    
-    @IBOutlet weak var newCountLabel: UILabel!
-    @IBOutlet weak var educationCountLabel: UILabel!
-    @IBOutlet weak var swiftHomeworkLabel: UILabel!
-    @IBOutlet weak var podcastCountLabel: UILabel!
-    @IBOutlet weak var booksCountLabel: UILabel!
-    
-    // MARK: - Private properties
-    
-    private var selectedCell: UITableViewCell?
-    
-    // MARK: - List Note
-    
-    /// Don't initialize models inside the VC. Move it elsewhere.
-    var newList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "New", title: "Test", description: "Test"),
-        RemindeNoteModel(id: 0, list: "New", title: "Test ", description: "")]
-    
-    var educationList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Education",  title: "Test", description: "")]
-    
-    var swiftHomeworkList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Swift Homework",  title: "Create Reminder", description: ""),
-        RemindeNoteModel(id: 1, list: "Swift Homework",  title: "Test", description: "")]
-    
-    var podcastList: [RemindeNoteModel] = []
-    
-    var booksList: [RemindeNoteModel] = [
-        RemindeNoteModel(id: 0, list: "Books",  title: "Прочесть 'Выбор великого демона'", description: ""),
-        RemindeNoteModel(id: 1, list: "Books",  title: "Прочесть 'Черное пламя над степью'", description: "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test")]
-    
-    // MARK: - Life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchControllerConfigure()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        countListTitle()
-    }
+final class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     
     // MARK: - Search Controller
     
-    /// Don't mix properties with methods. Better define them grouped at the beginning of the class definition.
     private var searchResultController: SearchResultTableViewController?
-    /// notes*
-    private var filteredNote = [RemindeNoteModel]()
-    /// Better name it `originalNotes`.
-    private var allList: [RemindeNoteModel] = [] // The array is needed for searching
+    private var filteredNotes = [NoteModel]()
+    private var allNotes: [NoteModel] = [] // The array is needed for searching
     
     /// Customization search сontroller
-    /// Better name the method as a command or call to action starting with a verb.
-    /// E.g. `configureSearchController()`
-    private func searchControllerConfigure() {
+    private func configureSearchController() {
         searchResultController = SearchResultTableViewController()
         let searchController = UISearchController(searchResultsController: searchResultController)
         searchController.searchResultsUpdater = self
@@ -77,9 +27,54 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         searchController.searchBar.placeholder = "Search"
     }
     
-    // MARK: - Private metod
+    // MARK: - Outlet
+
+    @IBOutlet weak var newCountLabel: UILabel!
+    @IBOutlet weak var educationCountLabel: UILabel!
+    @IBOutlet weak var swiftHomeworkLabel: UILabel!
+    @IBOutlet weak var podcastCountLabel: UILabel!
+    @IBOutlet weak var booksCountLabel: UILabel!
     
-    private func countListTitle() {
+    
+    // MARK: - Private properties
+    
+    private var selectedCell: UITableViewCell?
+    
+    // MARK: - List Note
+    
+    var newList: [NoteModel] = [
+        NoteModel(id: 0, list: "New", title: "Test", description: "Test"),
+        NoteModel(id: 1, list: "New", title: "Test ", description: "")]
+    
+    var educationList: [NoteModel] = [
+        NoteModel(id: 0, list: "Education",  title: "Test", description: "")]
+    
+    var swiftHomeworkList: [NoteModel] = [
+        NoteModel(id: 0, list: "Swift Homework",  title: "Create Reminder", description: ""),
+        NoteModel(id: 1, list: "Swift Homework",  title: "Test", description: "")]
+    
+    var podcastList: [NoteModel] = []
+    
+    var booksList: [NoteModel] = [
+        NoteModel(id: 0, list: "Books",  title: "Прочесть 'Выбор великого демона'", description: ""),
+        NoteModel(id: 1, list: "Books",  title: "Прочесть 'Черное пламя над степью'", description: "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test")]
+    
+    // MARK: - Life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureSearchController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        countListTitle()
+        setDefaultTitle()
+    }
+    
+    // MARK: - Public metod
+    
+    func countListTitle() {
         newCountLabel.text = "\(newList.count) >"
         educationCountLabel.text = "\(educationList.count) >"
         swiftHomeworkLabel.text = "\(swiftHomeworkList.count) >"
@@ -88,14 +83,15 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         navigationController?.toolbar.isHidden = false
     }
     
-    /// append*
-    private func appedAllList() {
-        allList = []
-        allList.append(contentsOf: newList)
-        allList.append(contentsOf: educationList)
-        allList.append(contentsOf: swiftHomeworkList)
-        allList.append(contentsOf: podcastList)
-        allList.append(contentsOf: booksList)
+    // MARK: - Private metod
+    
+    private func appendAllList() {
+        allNotes = []
+        allNotes.append(contentsOf: newList)
+        allNotes.append(contentsOf: educationList)
+        allNotes.append(contentsOf: swiftHomeworkList)
+        allNotes.append(contentsOf: podcastList)
+        allNotes.append(contentsOf: booksList)
     }
     
     /// Better name it `showToolbar()`
@@ -105,6 +101,10 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private func hideToolbar() {
         self.navigationController?.setToolbarHidden(true, animated: true)
+    }
+    
+    private func setDefaultTitle() {
+        navigationController?.navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.label]
     }
     
     // MARK: - Table view delegate
@@ -133,7 +133,6 @@ class MyListTableViewController: UITableViewController, UISearchBarDelegate, UIS
         return controller
     }
     
-    /// Don't leave empty methods in the code.
     @IBAction func unwindToMyListTableViewController(_ sender: UIStoryboardSegue) {}
 }
 
@@ -142,18 +141,18 @@ extension MyListTableViewController: UISearchResultsUpdating {
         guard let queryText = searchController.searchBar.text else {
             return
         }
-        appedAllList()
+        appendAllList()
         if queryText.isEmpty {
-            filteredNote = allList
+            filteredNotes = allNotes
         } else {
-            filteredNote = []
-            allList.forEach { model in
+            filteredNotes = []
+            allNotes.forEach { model in
                 if model.title.contains(queryText) {
-                    filteredNote.append(model)
+                    filteredNotes.append(model)
                 }
             }
         }
-        searchResultController?.set(filteredNote: filteredNote)
+        searchResultController?.set(filteredNote: filteredNotes)
     }
     
     /// Methods show/hide toolbar for search
