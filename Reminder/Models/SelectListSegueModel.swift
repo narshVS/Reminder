@@ -1,6 +1,6 @@
 //
 //  SelectListSegueModel.swift
-//  Homework 11-13 Ovsyuk
+//  Reminder
 //
 //  Created by Влад Овсюк on 11.08.2020.
 //  Copyright © 2020 Vlad Ovsyuk. All rights reserved.

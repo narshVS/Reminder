@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		3031E8ED24D9B7BE005A246F /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E8EC24D9B7BE005A246F /* MyListTableViewController.swift */; };
 		303DB04324E064B3000DBDD2 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303DB04224E064B3000DBDD2 /* NoteCell.swift */; };
-		30406E0F25377E090071DD28 /* SearchNote.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30406E0D25377E090071DD28 /* SearchNote.storyboard */; };
-		30406E1325377E950071DD28 /* SelectedList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30406E1225377E950071DD28 /* SelectedList.storyboard */; };
 		30406E2A253780D40071DD28 /* NewReminder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30406E28253780D40071DD28 /* NewReminder.storyboard */; };
+		3046DDBC253A0A7900BB4628 /* SearchNote.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3046DDBB253A0A7900BB4628 /* SearchNote.storyboard */; };
+		3046DDC0253A0AB900BB4628 /* SelectedList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3046DDBF253A0AB900BB4628 /* SelectedList.storyboard */; };
 		307E599E24F92BE40059BE89 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307E599D24F92BE40059BE89 /* SearchCell.swift */; };
 		307E59A024F92CF70059BE89 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307E599F24F92CF70059BE89 /* SearchResultTableViewController.swift */; };
 		307E59A224F946900059BE89 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307E59A124F946900059BE89 /* SearchCell.xib */; };
@@ -32,9 +32,9 @@
 /* Begin PBXFileReference section */
 		3031E8EC24D9B7BE005A246F /* MyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
 		303DB04224E064B3000DBDD2 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
-		30406E0E25377E090071DD28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Reminder/Storyboard/Base.lproj/SearchNote.storyboard; sourceTree = "<group>"; };
-		30406E1225377E950071DD28 /* SelectedList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelectedList.storyboard; sourceTree = "<group>"; };
 		30406E29253780D40071DD28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Reminder/Storyboard/Base.lproj/NewReminder.storyboard; sourceTree = "<group>"; };
+		3046DDBB253A0A7900BB4628 /* SearchNote.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchNote.storyboard; sourceTree = "<group>"; };
+		3046DDBF253A0AB900BB4628 /* SelectedList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelectedList.storyboard; sourceTree = "<group>"; };
 		307E599D24F92BE40059BE89 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		307E599F24F92CF70059BE89 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		307E59A124F946900059BE89 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
@@ -126,9 +126,9 @@
 			children = (
 				30AF050B24D6DC2000B113E3 /* LaunchScreen */,
 				30AF04FA24D6DB9300B113E3 /* MyList.storyboard */,
-				30406E1225377E950071DD28 /* SelectedList.storyboard */,
+				3046DDBF253A0AB900BB4628 /* SelectedList.storyboard */,
 				30406E28253780D40071DD28 /* NewReminder.storyboard */,
-				30406E0D25377E090071DD28 /* SearchNote.storyboard */,
+				3046DDBB253A0A7900BB4628 /* SearchNote.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -233,11 +233,11 @@
 			files = (
 				307E59A224F946900059BE89 /* SearchCell.xib in Resources */,
 				30AF050124D6DB9800B113E3 /* LaunchScreen.storyboard in Resources */,
+				3046DDBC253A0A7900BB4628 /* SearchNote.storyboard in Resources */,
 				30406E2A253780D40071DD28 /* NewReminder.storyboard in Resources */,
-				30406E0F25377E090071DD28 /* SearchNote.storyboard in Resources */,
-				30406E1325377E950071DD28 /* SelectedList.storyboard in Resources */,
 				30AF04FE24D6DB9800B113E3 /* Assets.xcassets in Resources */,
 				30AF04FC24D6DB9300B113E3 /* MyList.storyboard in Resources */,
+				3046DDC0253A0AB900BB4628 /* SelectedList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,14 +267,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		30406E0D25377E090071DD28 /* SearchNote.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				30406E0E25377E090071DD28 /* Base */,
-			);
-			name = SearchNote.storyboard;
-			sourceTree = "<group>";
-		};
 		30406E28253780D40071DD28 /* NewReminder.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

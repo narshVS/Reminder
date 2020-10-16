@@ -187,7 +187,7 @@
                         <outlet property="newCountLabel" destination="6dn-Nk-EWb" id="NJK-VY-HbR"/>
                         <outlet property="podcastCountLabel" destination="hid-TJ-2Zi" id="xRk-c0-ENw"/>
                         <outlet property="swiftHomeworkLabel" destination="ZmR-eR-9hY" id="miL-UO-pzv"/>
-                        <segue destination="FUi-1z-1kh" kind="show" identifier="selectedListSegue" destinationCreationSelector="cellTapped:" id="alj-mE-ka0"/>
+                        <segue destination="Pe0-PD-ccp" kind="show" identifier="selectedListSegue" destinationCreationSelector="cellTapped:" id="2ms-qi-CXo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yEn-Y4-y02" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -215,16 +215,6 @@
             </objects>
             <point key="canvasLocation" x="-1178" y="691"/>
         </scene>
-        <!--SelectedList-->
-        <scene sceneID="kOy-L1-CDb">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SelectedList" id="FUi-1z-1kh" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="lkz-l5-gtd"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GFf-ap-BGf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="696.79999999999995" y="690.40479760119945"/>
-        </scene>
         <!--NewReminder-->
         <scene sceneID="vl7-Th-MDk">
             <objects>
@@ -232,6 +222,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57e-mX-b1L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-169" y="1169"/>
+        </scene>
+        <!--SelectedList-->
+        <scene sceneID="UI2-rZ-4su">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SelectedList" id="Pe0-PD-ccp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EJU-vz-Vp9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWd-W1-LoJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="644" y="690"/>
         </scene>
     </scenes>
     <resources>

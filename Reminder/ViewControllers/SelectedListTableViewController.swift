@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 final class SelectedListTableViewController: UITableViewController {
     
     // MARK: - Outlet
@@ -15,7 +17,6 @@ final class SelectedListTableViewController: UITableViewController {
     @IBOutlet weak var titleListLabel: UINavigationItem! // Navigation title
     @IBOutlet weak var newReminderButton: UIBarButtonItem! // Button for crate new note
     @IBOutlet weak var noRemindersLabel: UILabel! // Label empty list
-    @IBOutlet var tableViewOutlet: UITableView!
     
     // MARK: - Private properties
     
@@ -42,7 +43,7 @@ final class SelectedListTableViewController: UITableViewController {
     
     /// Customization navigation title and color for list
     private func setNotes() {
-        notes.append(contentsOf: listSegueModel!.listNoteArray)
+        notes.append(contentsOf: listSegueModel?.listNoteArray ?? [])
         titleListLabel.title = listSegueModel?.title
         
         switch listSegueModel?.title {
@@ -80,7 +81,7 @@ final class SelectedListTableViewController: UITableViewController {
     
     /// Add new note, To doo...
     @IBAction func newReminderButtopTapped(_ sender: Any) {
-        notes.append(NoteModel(id: notes.endIndex, list: titleListLabel.title!, title: "TO DOO", description: "Coming soon..."))
+        notes.append(NoteModel(id: notes.endIndex, list: titleListLabel.title ?? "", title: "TO DOO", description: "Coming soon..."))
         isDeleteOrSave = true
         tableView.reloadData()
         configureEmptyState()
@@ -93,9 +94,9 @@ final class SelectedListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "ReminderNoteCell", for: indexPath) as! NoteCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:  "NoteCell", for: indexPath) as! NoteCell
 
-        cell.list = listSegueModel?.title ?? "" // Need for button color set
+        cell.list = listSegueModel!.title // Need for button color set
         
         cell.configure(titleNoteModel: notes[indexPath.row], titleDescriptionModel: notes[indexPath.row])
         
