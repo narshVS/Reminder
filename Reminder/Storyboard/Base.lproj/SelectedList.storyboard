@@ -110,11 +110,9 @@
                         <outlet property="newReminderButton" destination="Zuf-EI-51K" id="EiQ-JV-aRQ"/>
                         <outlet property="noRemindersLabel" destination="C6J-OV-2UI" id="kEA-fx-1ib"/>
                         <outlet property="titleListLabel" destination="eXb-nm-AFZ" id="wTu-La-U9c"/>
-                        <segue destination="Frs-yy-Boj" kind="unwind" identifier="MyListUnwindSegue" unwindAction="unwindToMyListTableViewController:" id="orc-CN-giT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gc9-fq-sjF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Frs-yy-Boj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="644" y="690"/>
         </scene>

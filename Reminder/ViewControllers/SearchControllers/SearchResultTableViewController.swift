@@ -12,7 +12,7 @@ final class SearchResultTableViewController: UITableViewController {
     
     // MARK: - Private properties
     
-    private var resultNote: [NoteModel] = [] {
+    private var resultNote: [List] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -27,22 +27,8 @@ final class SearchResultTableViewController: UITableViewController {
     
     // MARK: - Public metod
     
-    public func set(filteredNote: [NoteModel]) {
+    public func set(filteredNote: [List]) {
         self.resultNote = filteredNote
-        setID()
-    }
-    
-    // MARK: - Private metod
-    
-    /// Need for set color button
-    private func setID() {
-        var newId = 0
-        var index = 0
-        for _ in resultNote {
-            resultNote[index].id = newId
-            newId += 1
-            index += 1
-        }
     }
     
     // MARK: - TebleView Register
@@ -60,15 +46,6 @@ final class SearchResultTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reusableId, for: indexPath) as! SearchCell
-        
-        // Set colot button
-        for index in resultNote {
-            if index.id == indexPath.row {
-                cell.listStorage = index // set in model
-                
-            }
-        }
-        
         cell.configure(titleNoteModel: resultNote[indexPath.row], titleDescriptionModel: resultNote[indexPath.row], titleListModel: resultNote[indexPath.row])
         return cell
     }

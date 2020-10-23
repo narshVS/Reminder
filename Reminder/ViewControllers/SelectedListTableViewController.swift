@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 final class SelectedListTableViewController: UITableViewController {
     
     // MARK: - Outlet
@@ -20,33 +18,51 @@ final class SelectedListTableViewController: UITableViewController {
     
     // MARK: - Private properties
     
-    private var notes: [NoteModel] = []
-    private var isDeleteOrSave: Bool = false // Bool for save and delete note
+    private var notes: [List] = []
+    private var notesManager = NotesManager()
     
     // MARK: - Properties
     
-    var listSegueModel: ListSegueModel?
+    var listTitle = ""
     
     // MARK: - Lyfe cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNotes()
+        loadData()
         configureEmptyState()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        performSegue(withIdentifier: "MyListUnwindSegue", sender: self)
+    /// Needed for "Incomplete Closing"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setViewCollor()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        setDefaultTitle()
+    }
+
     // MARK: - Private metod
     
+    /// Loading data from CoreData and selecting notes
+    private func loadData() {
+        notes.removeAll()
+        notesManager.fetchGroups { [weak self] notes in
+            notes.forEach { note in
+                if note.listName == self?.listTitle {
+                    self?.notes.append(note)
+                }
+            }
+        }
+    }
+    
     /// Customization navigation title and color for list
-    private func setNotes() {
-        notes.append(contentsOf: listSegueModel?.listNoteArray ?? [])
-        titleListLabel.title = listSegueModel?.title
+    private func setViewCollor() {
+        titleListLabel.title = listTitle
         
-        switch listSegueModel?.title {
+        switch titleListLabel.title {
         case "New":
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemGreen]
             newReminderButton.tintColor = .systemGreen
@@ -77,12 +93,16 @@ final class SelectedListTableViewController: UITableViewController {
         }
     }
     
+    private func setDefaultTitle() {
+        navigationController?.navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.label]
+    }
+    
     // MARK: - Action
     
     /// Add new note, To doo...
     @IBAction func newReminderButtopTapped(_ sender: Any) {
-        notes.append(NoteModel(id: notes.endIndex, list: titleListLabel.title ?? "", title: "TO DOO", description: "Coming soon..."))
-        isDeleteOrSave = true
+        notesManager.addNote(title: "TO DOO", descriptionNote: "Coming soon...", id: notes.count, listName: listTitle)
+        loadData()
         tableView.reloadData()
         configureEmptyState()
     }
@@ -96,9 +116,9 @@ final class SelectedListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  "NoteCell", for: indexPath) as! NoteCell
 
-        cell.list = listSegueModel!.title // Need for button color set
+        cell.list = titleListLabel.title ?? "Title" // Need for button color set
         
-        cell.configure(titleNoteModel: notes[indexPath.row], titleDescriptionModel: notes[indexPath.row])
+        cell.configure(titleNote: notes[indexPath.row], titleDescriptionModel: notes[indexPath.row])
         
         /// Custom separators
         Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { (timer) in
@@ -111,32 +131,10 @@ final class SelectedListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            isDeleteOrSave = true
+            notesManager.deleteNote(object: notes[indexPath.row]) // delete note from CoreData
             notes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             configureEmptyState()
-        }
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let myListTableViewController = segue.destination as? MyListTableViewController else { return }
-        if isDeleteOrSave == true {
-            switch titleListLabel.title {
-            case "New":
-                myListTableViewController.newList = notes
-            case "Education":
-                myListTableViewController.educationList = notes
-            case "Swift Homework":
-                myListTableViewController.swiftHomeworkList = notes
-            case "Podcast":
-                myListTableViewController.podcastList = notes
-            case "Books":
-                myListTableViewController.booksList = notes
-            default:
-                break
-            }
         }
     }
 }

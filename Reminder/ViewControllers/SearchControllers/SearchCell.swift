@@ -30,15 +30,15 @@ final class SearchCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var listStorage: NoteModel?
+    var listStorage: List?
     
     // MARK: - Configure
     
-    func configure(titleNoteModel: NoteModel, titleDescriptionModel: NoteModel, titleListModel: NoteModel) {
+    func configure(titleNoteModel: List, titleDescriptionModel: List, titleListModel: List) {
         titleNoteLabel.text = titleNoteModel.title
-        titleDescriptionLabel.text = titleDescriptionModel.description
-        titleListLabel.text = titleListModel.list
-        setTitleColor()
+        titleDescriptionLabel.text = titleDescriptionModel.descriptionNote
+        titleListLabel.text = titleListModel.listName
+        setTitleColor(listName: titleListModel.listName ?? "")
         checkButtonEnable() /// Remove description when it empty and configure him and title list
     }
     
@@ -59,8 +59,8 @@ final class SearchCell: UITableViewCell {
     
     // MARK: - Private methods
     
-    private func setTitleColor() {
-        switch listStorage?.list {
+    private func setTitleColor(listName: String) {
+        switch listName {
         case "New":
             titleListLabel.textColor = .systemGreen
         case "Education":
@@ -88,7 +88,7 @@ final class SearchCell: UITableViewCell {
     }
     
     private func checkBoxColorSet() {
-        switch listStorage?.list {
+        switch listStorage?.listName {
         case "New":
             checkBoxButton.tintColor = .systemGreen
             checkBoxFillButton.tintColor = .systemGreen

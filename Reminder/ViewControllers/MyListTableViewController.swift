@@ -6,15 +6,15 @@
 //  Copyright © 2020 Vlad Ovsyuk. All rights reserved.
 //
 
-import UIKit 
+import UIKit
 
 final class MyListTableViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     
     // MARK: - Search Controller
     
     private var searchResultController: SearchResultTableViewController?
-    private var filteredNotes = [NoteModel]()
-    private var allNotes: [NoteModel] = [] // The array is needed for searching
+    private var filteredNotes = [List]()
+    private var allNotes = [List]() // The array is needed for searching
     
     /// Customization search сontroller
     private func configureSearchController() {
@@ -40,24 +40,16 @@ final class MyListTableViewController: UITableViewController, UISearchBarDelegat
     
     private var selectedCell: UITableViewCell?
     
-    // MARK: - List Note
+    // MARK: - Properties
     
-    var newList: [NoteModel] = [
-        NoteModel(id: 0, list: "New", title: "Test", description: "Test"),
-        NoteModel(id: 1, list: "New", title: "Test ", description: "")]
+    var notesManager = NotesManager()
     
-    var educationList: [NoteModel] = [
-        NoteModel(id: 0, list: "Education",  title: "Test", description: "")]
-    
-    var swiftHomeworkList: [NoteModel] = [
-        NoteModel(id: 0, list: "Swift Homework",  title: "Create Reminder", description: ""),
-        NoteModel(id: 1, list: "Swift Homework",  title: "Test", description: "")]
-    
-    var podcastList: [NoteModel] = []
-    
-    var booksList: [NoteModel] = [
-        NoteModel(id: 0, list: "Books",  title: "Прочесть 'Выбор великого демона'", description: ""),
-        NoteModel(id: 1, list: "Books",  title: "Прочесть 'Черное пламя над степью'", description: "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test")]
+    var newListCount: Int = 0
+    var educationListCount: Int = 0
+    var swiftHomeworkListCount: Int = 0
+    var podcastListCount: Int = 0
+    var booksListCount: Int = 0
+    var allListCount: Int = 0
     
     // MARK: - Life cycle
     
@@ -69,42 +61,63 @@ final class MyListTableViewController: UITableViewController, UISearchBarDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         countListTitle()
-        setDefaultTitle()
     }
     
     // MARK: - Public metod
     
     func countListTitle() {
-        newCountLabel.text = "\(newList.count) >"
-        educationCountLabel.text = "\(educationList.count) >"
-        swiftHomeworkLabel.text = "\(swiftHomeworkList.count) >"
-        podcastCountLabel.text = "\(podcastList.count) >"
-        booksCountLabel.text = "\(booksList.count) >"
-        navigationController?.toolbar.isHidden = false
+        newListCount = 0
+        educationListCount = 0
+        swiftHomeworkListCount = 0
+        podcastListCount = 0
+        booksListCount = 0
+        allListCount = 0
+        
+        notesManager.fetchGroups { [weak self] notes in
+            notes.forEach {
+                switch $0.listName {
+                case "New":
+                    self?.newListCount += 1
+                    self?.allListCount += 1
+                case "Education":
+                    self?.educationListCount += 1
+                    self?.allListCount += 1
+                case "Swift Homework":
+                    self?.swiftHomeworkListCount += 1
+                    self?.allListCount += 1
+                case "Podcast":
+                    self?.podcastListCount += 1
+                    self?.allListCount += 1
+                case "Books":
+                    self?.booksListCount += 1
+                    self?.allListCount += 1
+                default:
+                    break
+                }
+            }
+        }
+        
+        newCountLabel.text = "\(newListCount) >"
+        educationCountLabel.text = "\(educationListCount) >"
+        swiftHomeworkLabel.text = "\(swiftHomeworkListCount) >"
+        podcastCountLabel.text = "\(podcastListCount) >"
+        booksCountLabel.text = "\(booksListCount) >"
     }
     
     // MARK: - Private metod
     
     private func appendAllList() {
-        allNotes = []
-        allNotes.append(contentsOf: newList)
-        allNotes.append(contentsOf: educationList)
-        allNotes.append(contentsOf: swiftHomeworkList)
-        allNotes.append(contentsOf: podcastList)
-        allNotes.append(contentsOf: booksList)
+        notesManager.fetchGroups { [weak self] notes in
+            self?.allNotes = notes
+        }
     }
     
-    /// Better name it `showToolbar()`
     private func unHideToolbar() {
         self.navigationController?.setToolbarHidden(false, animated: true)
     }
     
     private func hideToolbar() {
         self.navigationController?.setToolbarHidden(true, animated: true)
-    }
-    
-    private func setDefaultTitle() {
-        navigationController?.navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.label]
     }
     
     // MARK: - Table view delegate
@@ -118,15 +131,15 @@ final class MyListTableViewController: UITableViewController, UISearchBarDelegat
         let controller = SelectedListTableViewController(coder: coder)
         switch selectedCell?.textLabel?.text {
         case "New":
-            controller?.listSegueModel = ListSegueModel(title: "New", listNoteArray: newList)
+            controller?.listTitle = "New"
         case "Education":
-            controller?.listSegueModel = ListSegueModel(title: "Education", listNoteArray: educationList)
+            controller?.listTitle = "Education"
         case "Swift Homework":
-            controller?.listSegueModel = ListSegueModel(title: "Swift Homework", listNoteArray: swiftHomeworkList)
+            controller?.listTitle = "Swift Homework"
         case "Podcast":
-            controller?.listSegueModel = ListSegueModel(title: "Podcast", listNoteArray: podcastList)
+            controller?.listTitle = "Podcast"
         case "Books":
-            controller?.listSegueModel = ListSegueModel(title: "Books", listNoteArray: booksList)
+            controller?.listTitle = "Books"
         default:
             break
         }
@@ -146,9 +159,9 @@ extension MyListTableViewController: UISearchResultsUpdating {
             filteredNotes = allNotes
         } else {
             filteredNotes = []
-            allNotes.forEach { model in
-                if model.title.contains(queryText) {
-                    filteredNotes.append(model)
+            allNotes.forEach {
+                if $0.title?.contains(queryText) ?? false {
+                    filteredNotes.append($0)
                 }
             }
         }

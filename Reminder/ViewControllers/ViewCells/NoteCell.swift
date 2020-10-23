@@ -25,8 +25,8 @@ final class NoteCell: UITableViewCell {
     
     // MARK: - Configure
     
-    func configure(titleNoteModel: NoteModel, titleDescriptionModel: NoteModel) {
-        titleNoteLabel.text = titleNoteModel.title
+    func configure(titleNote: List, titleDescriptionModel: List) {
+        titleNoteLabel.text = titleNote.title
         discriptionIsEnabled(title: titleDescriptionModel)
     }
     
@@ -71,9 +71,9 @@ final class NoteCell: UITableViewCell {
     }
     
     /// Remove description when it empty and configure him
-    private func discriptionIsEnabled(title: NoteModel) {
+    private func discriptionIsEnabled(title: List) {
         if title.description != "" {
-            titleDescriptionLabel?.text = title.description
+            titleDescriptionLabel?.text = title.descriptionNote
         } else {
             titleDescriptionLabel?.removeFromSuperview()
         }

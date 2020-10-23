@@ -62,7 +62,7 @@ final class NewReminderTableViewCintroller: UITableViewController {
     /// Segue - Select list for save
     @IBSegueAction func selectListTapped(_ coder: NSCoder) -> ListReminderTableViewController? {
         let controller = ListReminderTableViewController(coder: coder)
-        controller?.selectList = SelectListSegueModel(list: titleListLabel.text ?? "")
+        controller?.selectList = SelectListSegueModel(list: titleListLabel.text ?? "New List >")
         return controller
     }
     
@@ -79,15 +79,15 @@ final class NewReminderTableViewCintroller: UITableViewController {
         if titleTextView.text != "" {
             switch titleListLabel.text {
             case "New List >":
-                myListTableViewController.newList.append(NoteModel(id: myListTableViewController.newList.endIndex + 1, list: "New",  title: titleTextView.text, description: descriptionTextView.text))
+                myListTableViewController.notesManager.addNote(title: titleTextView.text, descriptionNote: descriptionTextView.text, id: myListTableViewController.allListCount, listName: "New")
             case "Education List >":
-                myListTableViewController.educationList.append(NoteModel(id: myListTableViewController.educationList.endIndex + 1, list: "Education",  title: titleTextView.text, description: descriptionTextView.text))
+                myListTableViewController.notesManager.addNote(title: titleTextView.text, descriptionNote: descriptionTextView.text, id: myListTableViewController.allListCount, listName: "Education")
             case "Swift List >":
-                myListTableViewController.swiftHomeworkList.append(NoteModel(id: myListTableViewController.swiftHomeworkList.endIndex + 1, list: "Swift",  title: titleTextView.text, description: descriptionTextView.text))
+                myListTableViewController.notesManager.addNote(title: titleTextView.text, descriptionNote: descriptionTextView.text, id: myListTableViewController.allListCount, listName: "Swift Homework")
             case "Podcast List >":
-                myListTableViewController.podcastList.append(NoteModel(id: myListTableViewController.podcastList.endIndex + 1, list: "Podcast",  title: titleTextView.text, description: descriptionTextView.text))
+                myListTableViewController.notesManager.addNote(title: titleTextView.text, descriptionNote: descriptionTextView.text, id: myListTableViewController.allListCount, listName: "Podcast")
             case "Books List >":
-                myListTableViewController.booksList.append(NoteModel(id: myListTableViewController.booksList.endIndex + 1, list: "Books",  title: titleTextView.text, description: descriptionTextView.text))
+                myListTableViewController.notesManager.addNote(title: titleTextView.text, descriptionNote: descriptionTextView.text, id: myListTableViewController.allListCount, listName: "Books")
             default:
                 break
             }
